@@ -22,7 +22,11 @@ RUN set -ex;\
 
 VOLUME /gisdata
 
-ENV TIGER_YEAR=2020
+ENV TIGER_YEAR=2019
+ENV PIP_PACKAGES=""
 
 COPY 2*.sh /docker-entrypoint-initdb.d/
-COPY load_state.sh /usr/local/bin/
+COPY load_state.sh bootstrap-pip.sh /usr/local/bin/
+ENTRYPOINT [ "/usr/local/bin/bootstrap-pip.sh" , "/usr/local/bin/docker-entrypoint.sh"]
+
+CMD ["postgres"]
