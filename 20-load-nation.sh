@@ -1,5 +1,7 @@
 #!/bin/bash -e
-
+if [ "${SKIP_TIGER_IMPORT:-0}" != 0 ]; then
+  exit 0
+fi
 export PGUSER="$POSTGRES_USER"
 export PGDATABASE="$POSTGRES_DB"
 export PGPASSWORD="$POSTGRES_PASSWORD"
@@ -16,7 +18,7 @@ UPDATE tiger.loader_variables
        (tiger_year, website_root) = ('${TIGER_YEAR}', REGEXP_REPLACE(website_root, '20\d\d', '${TIGER_YEAR}'));
 EOF
 )
-psql  -c "$update_year_query"
+psql -c "$update_year_query"
 psql -tA -c "select loader_generate_nation_script('sh');" >"$out_script"
 
 sed -i -E 's/^.*export\s+PG.*$//i' "$out_script"
