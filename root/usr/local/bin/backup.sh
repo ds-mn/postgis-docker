@@ -1,4 +1,7 @@
 #!/bin/bash
+PGDATABASE=$POSTGRES_DB
+PGPASSWORD=$POSTGRES_PASSWORD
+
 
 excludes=$(psql -c '\dm *.*' -t | grep -v '^\s*$' |
   awk -F'|' '{print $1"."$2;}' | sed -E 's|\s+||g' |
