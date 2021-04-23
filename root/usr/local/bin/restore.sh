@@ -1,8 +1,8 @@
 #!/bin/bash
 backup_file="$BACKUP_FILE_NAME"
 
-PGDATABASE=$POSTGRES_DB
-PGPASSWORD=$POSTGRES_PASSWORD
+export PGDATABASE=$POSTGRES_DB
+export PGPASSWORD=$POSTGRES_PASSWORD
 
 db_name=$PGDATABASE
 pg_restore -c -d ${db_name} --if-exists -v -j4 -O -l /backup/${backup_file} >/tmp/db.list

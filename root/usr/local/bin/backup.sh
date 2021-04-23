@@ -1,6 +1,6 @@
 #!/bin/bash
-PGDATABASE=$POSTGRES_DB
-PGPASSWORD=$POSTGRES_PASSWORD
+export PGDATABASE=$POSTGRES_DB
+export PGPASSWORD=$POSTGRES_PASSWORD
 
 
 excludes=$(psql -c '\dm *.*' -t | grep -v '^\s*$' |
